@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WhiteLotusProject.Models.Teacher>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<hr />
+<p>
+    @Html.ActionLink("Create New", "Create",null,new {@class="btn btn-info"})
+</p>
+<table class="table table-striped table-hover table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MobileNo)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MobileNo)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", "Teachers",new{id=item.Id})" class="btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-edit"></span>  Edit
+                </a>
+                <a href="@Url.Action("Details", "Teachers", new { id = item.Id })" class="btn btn-info btn-sm">
+                    <span class="glyphicon glyphicon-list-alt"></span>  Details
+                </a>
+                <a href="@Url.Action("Delete", "Teachers", new { id = item.Id })" class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-trash"></span>  Delete
+                </a>
+                
+            </td>
+        </tr>
+    }
+
+</table>

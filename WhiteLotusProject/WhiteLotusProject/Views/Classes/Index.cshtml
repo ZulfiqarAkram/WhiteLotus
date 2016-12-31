@@ -1,0 +1,52 @@
+﻿@model IEnumerable<WhiteLotusProject.Models.Class>
+
+@{
+    ViewBag.Title = "UpComing's Classes";
+}
+
+<h2>UpComing's Classes</h2>
+<hr />
+<div class="row">
+    <ul class="class-container col-md-4">
+        @foreach (var cls in Model)
+        {
+            
+            <li><a href="@Url.Action("Details","Classes",new {id=cls.Id})">
+                    <div class="date">
+                        <div class="month">
+                            @cls.DateTime.ToString("MMM")
+                        </div>
+                        <div class="day">
+                            @cls.DateTime.ToString("d ")
+                        </div>
+                    </div>
+                    <div class="details">
+                        <span class="ClsTitle">
+            <b>@cls.Title</b> 
+        </span>
+                        <span class="ClsDescrp">
+                            <small>By @cls.Teacher.Name</small> <br />
+            @cls.Description
+        </span>
+                     
+                        <div>
+                            @cls.DateTime.ToShortTimeString()
+                        </div>
+
+                    </div>
+                    <div class="flag">
+                        @if (cls.IsCanceled == true)
+                        {
+                            <span class="label label-danger">Cancel</span>
+                        }
+                        else
+                        {
+                            <span class="label label-info">@(cls.Capacity==null ? 0 : cls.Capacity)</span>
+                        }
+                        
+                    </div>
+                    </a>
+            </li>
+        }
+    </ul>
+</div>

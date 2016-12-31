@@ -1,0 +1,130 @@
+﻿@model WhiteLotusProject.Models.Class
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Class</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Teacher.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Teacher.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Day)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Day)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Level)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Level)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Capacity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Capacity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsCanceled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsCanceled)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @if (User.IsInRole("Client"))
+    {
+        if (Model.DateTime.Subtract(DateTime.Now).TotalHours > 24)
+         {
+             <button data-cls-id="@Model.Id"
+                     class="btn @(Model.IsCanceled == true ? "disabled" : "") btn-success btn-sm  js-toggle-class">
+                 Cancel
+             </button>
+         }
+    }
+
+    @if (User.IsInRole("Client") == false)
+    {
+        @Html.ActionLink("Edit", "Edit", new {id = Model.Id}, new {@class = "btn btn-info"})
+        @Html.ActionLink("Delete", "Delete", new {id = Model.Id}, new {@class = "btn btn-danger"})
+    }
+</p>
+@section scripts{
+    <script>
+        $(document)
+            .ready(function() {
+                $(".js-toggle-class")
+                    .click(function(e) {
+                            var button = $(e.target);
+                            var id = button.attr("data-cls-id");
+                            $.ajax({
+                                url: "/api/reserveclass/cancel/" + id,
+                                method: "DELETE"
+                            })
+                        .done(function() {
+                            button.removeClass("btn-success")
+                                .addClass("btn-primary disabled")
+                                .text("Canceled");
+
+                        })
+                        .fail(function() {
+                            alert("Something failed in during cancel resreveatoin of class");
+
+                        });
+            });
+    });
+    </script>
+}

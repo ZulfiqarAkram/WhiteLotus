@@ -1,0 +1,115 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+/*Bootstrap Override*/
+
+body {
+    background-color: #e9ebee;
+}
+hr {
+    margin-top: 0px;
+        border: 0;
+    border-top: 2px solid #2c3e50;
+}
+/*Page Level Css*/
+
+.class-container {
+    list-style-type: none;
+    padding-top: 30px;
+}
+
+.class-container > li {
+    position: relative;
+    margin-bottom: 25px;
+    border: 1px solid;
+    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+
+
+.class-container > li .date {
+    background-color: #2c3e50;
+    color: white;
+    width: 60px;
+    text-align: center;
+    -ms-border-radius: 4px;
+    border-radius: 4px;
+    margin: 15px;
+}
+
+    .class-container > li .month {
+        text-transform: uppercase;
+        padding: 2px 6px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .class-container >li .day {
+        background-color: #e9ebee;
+        color: #333;
+        font-size: 26px;
+        padding: 4px 12px;
+        font-weight: bold;
+    }
+
+.class-container > li .details {
+    position: absolute;
+    top: 0;
+    left: 80px;
+    margin: 12px;
+    float: left;
+}
+    .class-container >li .ClsTitle {
+        font-weight: bold;
+        display: block;
+    }
+    .class-container >li .ClsDescrp {
+        font-size: 11px;
+    }
+
+.class-container > li .actions {
+    display: none;
+    font-size: 14px;
+}
+.class-container > li:hover .actions {
+    display: block;
+}
+
+.class-container > li .upper > a {
+    text-decoration: none;
+    color: black;
+}
+
+.class-container > li .flag {
+   
+    position: absolute;
+    right: 10px;
+    bottom: 110px;
+
+}
+

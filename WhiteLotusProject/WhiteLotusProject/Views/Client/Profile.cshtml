@@ -1,0 +1,66 @@
+﻿@model WhiteLotusProject.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+<h2>Profile</h2>
+
+<div>
+    <h4>ApplicationUser</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateofBirth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateofBirth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YogaExperience)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YogaExperience)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HealthIssues)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HealthIssues)
+        </dd>
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")*@
+</p>

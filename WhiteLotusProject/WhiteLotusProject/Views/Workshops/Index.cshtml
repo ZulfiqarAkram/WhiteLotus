@@ -1,0 +1,50 @@
+﻿@model IEnumerable<WhiteLotusProject.Models.Workshop>
+
+@{
+    ViewBag.Title = "UpComing's Workshops";
+}
+
+<h2>UpComing's Workshops</h2>
+<hr />
+<div class="row">
+    <ul class="class-container col-md-4">
+        @foreach (var wksp in Model)
+        {
+
+            <li>
+                <a href="@Url.Action("Details","Workshops",new {id=wksp.Id})">
+                    <div class="date">
+                        <div class="month">
+                            @wksp.DateTime.ToString("MMM")
+                        </div>
+                        <div class="day">
+                            @wksp.DateTime.ToString("d ")
+                        </div>
+                    </div>
+                    <div class="details">
+                        <span class="ClsTitle">
+                            <b>@wksp.Title</b>  
+                        </span>
+                        <span class="ClsDescrp">
+                            <small>By @wksp.Teacher.Name</small>
+                        </span> <br />
+                        <span class="ClsVenue">
+                            At <b> @wksp.Venue</b> on <b> @wksp.DateTime.ToShortTimeString()</b>
+                        </span>
+                      
+                      
+
+                    </div>
+                    <div class="flag">
+                        @if (wksp.IsCanceled == true)
+                        {
+                            <span class="label label-danger">Cancel</span>
+                        }
+
+                    </div>
+                    
+                </a>
+            </li>
+        }
+    </ul>
+</div>

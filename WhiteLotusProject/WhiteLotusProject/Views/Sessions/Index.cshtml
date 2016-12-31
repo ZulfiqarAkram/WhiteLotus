@@ -1,0 +1,143 @@
+﻿@model WhiteLotusProject.ViewModels.SessionsViewModel
+@{
+    ViewBag.Title = @Model.Heading;
+}
+
+<h2>@Model.Heading</h2>
+<hr />
+<div class="row">
+    <ul class="class-container col-md-4" id="session">
+        @foreach (var cls in Model.Classes)
+        {
+            <li>
+                
+                <div class="upper">
+                    <a href="@Url.Action("Details", "Classes", new {id = cls.Id})">
+                        <div class="date">
+                            <div class="month">
+                                @cls.DateTime.ToString("MMM")
+                            </div>
+                            <div class="day">
+                                @cls.DateTime.ToString("d ")
+                            </div>
+                        </div>
+                        <div class="details">
+                            <span class="ClsTitle">
+                            <b>@cls.Title</b>
+                        </span>
+                            <span class="ClsDescrp">
+                            <small>By @cls.Teacher.Name</small> <br />
+                            @cls.Description
+                        </span>
+                            <div>
+                                @cls.DateTime.ToShortTimeString()
+                            </div>
+                        </div>
+                        <div class="flag">
+                            @if (cls.IsCanceled == true)
+                            {
+                                <span class="label label-danger">Cancel</span>
+                            }
+                            else
+                            {
+                                <span class="label label-info">@(cls.Capacity == null ? 0 : cls.Capacity)</span>
+                            }
+
+                        </div>
+                    </a>
+                </div>
+                    <div>
+                        <button data-cls-id="@cls.Id" 
+                                class="btn @(cls.IsCanceled == true ? "disabled" : "")  @(Model.ReserveClassLookup.Contains(cls.Id) ? "btn-success" : "btn-primary") btn-sm btn-block js-toggle-class">
+                            @(Model.ReserveClassLookup.Contains(cls.Id) ? "Enroll" : "Enroll ?")
+                        </button>
+                    </div>
+                
+            </li>
+        }
+        @foreach (var wksp in Model.Workshops)
+        {
+            <li>
+                <div class="upper">
+                    <a href="@Url.Action("Details", "Workshops", new {id = wksp.Id})">
+                        <div class="date">
+                            <div class="month">
+                                @wksp.DateTime.ToString("MMM")
+                            </div>
+                            <div class="day">
+                                @wksp.DateTime.ToString("d ")
+                            </div>
+                        </div>
+                        <div class="details">
+                            <span class="ClsTitle">
+                                <b>@wksp.Title</b>
+                            </span>
+                            <span class="ClsDescrp">
+                                <small>By @wksp.Teacher.Name</small>
+                            </span> <br />
+                            <span class="ClsVenue">
+                                At <b> @wksp.Venue</b> on <b> @wksp.DateTime.ToShortTimeString()</b>
+                            </span>
+                        </div>
+                        <div class="flag">
+                            @if (wksp.IsCanceled)
+                            {
+                                <span class="label label-danger">Cancel</span>
+                            }
+                            
+
+                        </div>
+                    </a>
+                </div>
+               
+                    <div class="">
+                        <button data-wksp-id="@wksp.Id"
+                                class="btn @(wksp.IsCanceled ? "disabled" : "")  @(Model.ReserveWorkshopLookup.Contains(wksp.Id) ? "btn-success" : "btn-primary") btn-sm btn-block js-toggle-workshop">
+                            @(Model.ReserveWorkshopLookup.Contains(wksp.Id) ? "Attending" : "Attending ?")
+                        </button>
+                    </div>
+                
+            </li>
+        }
+    </ul>
+</div>
+@section scripts{
+    <script>
+        $(document)
+            .ready(function() {
+                $(".js-toggle-class")
+                    .click(function(e) {
+                        var button = $(e.target);
+                        var id = button.attr("data-cls-id");
+                        $.post("/api/reserveclass/enroll/"+id)
+                            .done(function() {
+                                button.removeClass("btn-primary")
+                                    .addClass("btn-success")
+                                    .text("Enrolled");
+                               
+                            })
+                            .fail(function() {
+                                alert("Something failed in class");
+                                
+                            });
+                    });
+
+                $(".js-toggle-workshop")
+                    .click(function (e) {
+                        var button = $(e.target);
+                        var id = button.attr("data-wksp-id");
+                        $.post("/api/reserveworkshop/attend/"+id)
+                            .done(function () {
+                                button.removeClass("btn-primary")
+                                    .addClass("btn-success")
+                                    .text("Attending");
+                               
+                            })
+                            .fail(function () {
+                                alert("Something failed in workshop");
+                                
+                            });
+                    });
+            });
+    </script>
+}
